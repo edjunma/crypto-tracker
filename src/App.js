@@ -14,6 +14,7 @@ function App() {
 			)
 			.then((res) => {
 				setCoins(res.data);
+				console.log(res.data);
 			})
 			.catch((error) => console.log(error));
 	}, []);
@@ -22,7 +23,7 @@ function App() {
 		setSearch(e.target.value);
 	};
 
-	const filterCoins = coins.filter((coin) =>
+	const filteredCoins = coins.filter((coin) =>
 		coin.name.toLowerCase().includes(search.toLowerCase())
 	);
 
@@ -39,16 +40,18 @@ function App() {
 					></input>
 				</form>
 			</div>
-			{filterCoins.map((coin) => {
+			{filteredCoins.map((coin) => {
 				return (
 					<Coin
 						key={coin.id}
 						name={coin.name}
-						image={coin.image}
-						symbol={coin.symbol}
-						volume={coin.market_cap}
 						price={coin.current_price}
-					></Coin>
+						symbol={coin.symbol}
+						marketcap={coin.total_volume}
+						volume={coin.market_cap}
+						image={coin.image}
+						priceChange={coin.price_change_percentage_24h}
+					/>
 				);
 			})}
 		</div>
